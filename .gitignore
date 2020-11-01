@@ -7,6 +7,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+.idea
+
 /PumpBot-API/config
 
 # Discord bot properties
