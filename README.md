@@ -1,5 +1,6 @@
 # Airbnb-Ideal-Property-Finder
 This program determines the attributes that make a property the most profitable to rent out on Airbnb.
+Start the program by running a MySQL server locally and then running start_analysis.py.
 
 ## Tools used:
 * Python 3
@@ -31,3 +32,13 @@ The program outputs a report PDF, which outlines the findings of the program. Al
 
 ## MySQL
 You must have an instance of MySQL running locally on your machine before you launch the program. See https://dev.mysql.com/doc/refman/8.0/en/windows-installation.html
+
+## If I had more data...
+If I could obtain more data, I would try to obtain what type of property each listing is (for the purpose of determining which New York tax code it falls under. I would also use utility prices per district to more accurately determine the cost of operating the property.
+
+## Future Features
+With more time, here is what I would change:
+* clean up the code by seperating functions
+* commenting more of the code
+* get rid of warnings in console output
+
