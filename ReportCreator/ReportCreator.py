@@ -1,14 +1,9 @@
-import argparse
 import os
 import subprocess
-from time import sleep
 
 import matplotlib.pyplot as plt
-from matplotlib.dates import date2num
 from datetime import datetime
 import numpy as np
-from tex import latex2pdf
-from pdflatex import PDFLaTeX
 
 class ReportCreator:
     def createReport(self, numberOfDaysRented, best_listing, best_listing_profit, listing_stats, best_neighbourhood):
