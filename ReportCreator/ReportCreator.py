@@ -28,7 +28,7 @@ class ReportCreator:
             ind = np.arange(n)  # the x locations for the groups
             width = 0.27  # the width of the bars
 
-            fig = plt.figure(figsize=(15, 5))
+            fig = plt.figure(figsize=(15, 8))
             ax = fig.add_subplot(111)
 
             yvals = [listing_stats[j][2] for j in range(i, i + n)]
@@ -103,7 +103,7 @@ class ReportCreator:
 \usepackage{graphicx}
 
 \title{Airbnb: Best Properties To Buy}
-\author{Report assumes the user will rent out their property for 365 days}
+\author{Report assumes the user will rent out their property for ''' + str(numberOfDaysRented) + r''' days}
 \date{Report generated on date}
 
 \begin{document}
@@ -124,6 +124,9 @@ The most profitable listing on Airbnb in the selected cities is as follows:\\ \\
         for i in best_listing:
             content += str(i) + ", "
 
+        content += r'''\\ If available for ''' + str(numberOfDaysRented) + r''' days, the property will make '''
+        content += "{:.2f}".format(best_listing_profit) + r''' dollars annually. \\'''
+
         content += r'''\section{Neighbourhoods}
 \begin{figure}
   \includegraphics[width=1.0\textwidth]{figures/''' + currentDate + r'''/best-neighbourhood.png}
@@ -135,7 +138,7 @@ The most profitable listing on Airbnb in the selected cities is as follows:\\ \\
         for i in range(0, len(listing_stats), N):
             content2 = r'''
   \includegraphics[width=1.0\textwidth]{figures/''' + currentDate + r'''/neighbourhoods-''' + str(i) + r'''.png}
-  \caption{Neighbourhood details}
+  \caption{}
   \label{fig:n''' + str(i) + r'''}
 \end{figure}
 '''
