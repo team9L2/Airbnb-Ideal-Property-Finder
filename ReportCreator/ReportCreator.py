@@ -121,7 +121,7 @@ where \(price\) is the price of the listing, \(days_available\) is the number of
 The most profitable listing on Airbnb in the selected cities is as follows:\\ \\
 \textbf{id, name, host\_id, host\_name, city, neighbourhood, latitude, longitude, room\_type, price, minimum\_nights, number\_of\_reviews, last\_review, reviews\_per\_month, calculated\_host\_listings\_count, availability\_365:} \\
 '''
-        for i in best_neighbourhood:
+        for i in best_listing:
             content += str(i) + ", "
 
         content += r'''\section{Neighbourhoods}
@@ -130,7 +130,6 @@ The most profitable listing on Airbnb in the selected cities is as follows:\\ \\
   \caption{The best neighbourhood to buy in based on average profit.}
   \label{fig:neighbourhood_best_1}
 \end{figure} \\ \\
-\section{All Neighbourhoods}
         '''
 
         for i in range(0, len(listing_stats), N):
