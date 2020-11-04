@@ -73,24 +73,20 @@ class PropertyAnalyzer:
         cursor.execute("select yearly_profit from property_to_buy;")
         best_listing_profit = cursor.fetchall()
 
-        cursor.execute("create table profits_stats as select city, neighbourhood, avg(yearly_profit) as avg_profit, max(yearly_profit) as max_profit, min(yearly_profit) as yearly_profit, count(*) as n from profits group by city, neighbourhood;")
+        cursor.execute("create table profits_stats as select city, neighbourhood, avg(yearly_profit) as avg_profit, max(yearly_profit) as max_profit, min(yearly_profit) as min_profit, count(*) as n from profits group by city, neighbourhood;")
         dataset.database.commit()
 
         cursor.execute("create table filtered_profits_stats as select * from profits_stats where n > 3;")
         dataset.database.commit()
 
-        cursor.execute("select * from listings where (city, neighbourhood, price) in (select city, neighbourhood, max(price) from listings group by city, neighbourhood);")
+        cursor.execute("select * from profits_stats;")
         listing_stats = cursor.fetchall()
 
         cursor.execute("select * from profits_stats where avg_profit in (select max(avg_profit) from filtered_profits_stats);")
         best_neighbourhood = cursor.fetchall()
 
-        print(best_listing)
-        print(best_listing_profit)
-        print(listing_stats)
-        print(best_neighbourhood)
+        return best_listing[0], best_listing_profit[0][0], listing_stats, best_neighbourhood[0]
 
-        pass
-
-    def getQuickestROIProperties(self, dataset: Dataset):
+    def getQuickestROIProperties(self, dataset: Dataset, numberOfDaysRented: int):
+        # Planned for the future
         pass

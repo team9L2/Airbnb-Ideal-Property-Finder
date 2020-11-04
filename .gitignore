@@ -2,6 +2,9 @@
 
 challenge_specs.pdf
 sql_credentials.json
+cover.pdf
+cover.tex
+cover.aux
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

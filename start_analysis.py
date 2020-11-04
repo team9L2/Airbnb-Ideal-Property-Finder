@@ -2,6 +2,7 @@ from DataLoader.BostonDataLoader import BostonDataLoader
 from DataLoader.NewYorkCityDataLoader import NewYorkCityDataLoader
 from Dataset.Dataset import Dataset
 from PropertyAnalyzer.PropertyAnalyzer import PropertyAnalyzer
+from ReportCreator.ReportCreator import ReportCreator
 
 
 def main():
@@ -86,8 +87,20 @@ def main():
     print("Analyzing data...")
 
     analyzer = PropertyAnalyzer()
-    analyzer.getHighestYearlyProfitProperties(dataset, numberOfDaysRented)
+    best_listing, best_listing_profit, listing_stats, best_neighbourhood = analyzer.getHighestYearlyProfitProperties(dataset, numberOfDaysRented)
+    print("Results obtained!")
+    print("Best listing:")
+    print(best_listing)
+    print("Best listing's annual profit if rented for " + str(numberOfDaysRented) + " days: " + str(best_listing_profit))
+    print("Neighbourhood statistics can be viewed in the report.")
+    print("Best neighbourhood:")
+    print(best_neighbourhood)
 
+    reportCreator = ReportCreator()
+    reportCreator.createReport(numberOfDaysRented, best_listing, best_listing_profit, listing_stats, best_neighbourhood)
+
+    print("Your report has been created. Please check report.pdf.")
+    print("Thank you and goodbye.")
     return 0
 
 
