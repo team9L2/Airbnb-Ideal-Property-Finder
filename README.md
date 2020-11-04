@@ -6,6 +6,7 @@ Start the program by running a MySQL server locally and then running start_analy
 * Python 3
 * MySQL
 * Matplotlib
+* LaTeX (for generating the report PDF)
 
 ## Detailed Introduction
 This program allows a user to select multiple cities and the number of days in the year the user will rent out their property for. The program will then compare existing Airbnb listings and determine which neighbourhood provides the best profit. The profit formula is as follows:
@@ -34,7 +35,7 @@ The program outputs a report PDF, which outlines the findings of the program. Al
 You must have an instance of MySQL running locally on your machine before you launch the program. See https://dev.mysql.com/doc/refman/8.0/en/windows-installation.html
 
 ## If I had more data...
-If I could obtain more data, I would try to obtain what type of property each listing is (for the purpose of determining which New York tax code it falls under. I would also use utility prices per district to more accurately determine the cost of operating the property.
+If I could obtain more data, I would try to obtain what type of property each listing is (for the purpose of determining which New York tax code it falls under). I would also use utility prices per district to more accurately determine the cost of operating the property.
 
 ## Future Features
 With more time, here is what I would change:
