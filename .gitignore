@@ -5,6 +5,7 @@ sql_credentials.json
 cover.pdf
 cover.tex
 cover.aux
+figures/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
