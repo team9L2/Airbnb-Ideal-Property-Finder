@@ -1,6 +1,7 @@
 # This gitignore is mostly copied from PumpBot.
 
-# challenge_specs.pdf
+challenge_specs.pdf
+sql_credentials.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
