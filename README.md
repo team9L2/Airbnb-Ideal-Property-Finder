@@ -32,9 +32,9 @@ You can add your own datasets for a city into the program. However, two datasets
 The program outputs a report PDF, which outlines the findings of the program. All plots used in the pdf can be found in the figures folder.
 
 ## Requirements for running
-You must have an instance of MySQL running locally on your machine before you launch the program. See https://dev.mysql.com/doc/refman/8.0/en/windows-installation.html
-Please ensure you have Python 3.7 installed.
-Please ensure you have a LaTeX builder installed on your computer for report generation. For Windows, see https://miktex.org/
+* You must have an instance of MySQL running locally on your machine before you launch the program. See https://dev.mysql.com/doc/refman/8.0/en/windows-installation.html
+* Please ensure you have Python 3.7 installed.
+* Please ensure you have a LaTeX builder installed on your computer for report generation. For Windows, see https://miktex.org/
 
 ## If I had more data...
 If I could obtain more data, I would try to obtain what type of property each listing is (for the purpose of determining which New York tax code it falls under). I would also use utility prices per district to more accurately determine the cost of operating the property.
