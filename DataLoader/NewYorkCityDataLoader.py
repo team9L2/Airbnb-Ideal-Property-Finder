@@ -12,7 +12,7 @@ class NewYorkCityDataLoader(DataLoader):
     def load(self, path: str, dataset: Dataset) -> bool:
         toInsert = []
 
-        with open(path + "/AB_NYC_2019.csv", encoding="utf8") as csvfile:
+        with open(f"{path}/AB_NYC_2019.csv", encoding="utf8") as csvfile:
             reader = csv.reader(csvfile)
             count = 0
             first = True
@@ -39,32 +39,24 @@ class NewYorkCityDataLoader(DataLoader):
                 else:
                     row[12] = None
 
-                if row[13] != "":
-                    row[13] = float(row[13])
-                else:
-                    row[13] = None
-
-                if row[14] != "":
-                    row[14] = int(row[14])
-                else:
-                    row[14] = None
-
-                if row[15] != "":
-                    row[15] = int(row[15])
-                else:
-                    row[15] = None
-
+                row[13] = float(row[13]) if row[13] != "" else None
+                row[14] = int(row[14]) if row[14] != "" else None
+                row[15] = int(row[15]) if row[15] != "" else None
                 # drop "id" because our table has an auto_increment id
                 row.pop(0)
 
                 count += 1
                 toInsert.append(row)
 
-        sql = "INSERT INTO " + Dataset.GENERAL_TABLE_NAME + " (name, host_id, host_name," \
-            " city, neighbourhood, latitude, longitude, room_type, price," \
-            " minimum_nights, number_of_reviews, last_review, reviews_per_month, " \
-            " calculated_host_listings_count, availability_365) VALUES (%s, %s," \
+        sql = (
+            f"INSERT INTO {Dataset.GENERAL_TABLE_NAME}"
+            + " (name, host_id, host_name,"
+            " city, neighbourhood, latitude, longitude, room_type, price,"
+            " minimum_nights, number_of_reviews, last_review, reviews_per_month, "
+            " calculated_host_listings_count, availability_365) VALUES (%s, %s,"
             " %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        )
+
         cursor = dataset.database.cursor()
 
         for entry in toInsert:
@@ -78,7 +70,7 @@ class NewYorkCityDataLoader(DataLoader):
 
         neighbourhoods = []
 
-        with open(path + "/prices.csv", encoding="utf8") as csvfile:
+        with open(f"{path}/prices.csv", encoding="utf8") as csvfile:
             reader = csv.reader(csvfile)
             first = True
 
@@ -89,8 +81,12 @@ class NewYorkCityDataLoader(DataLoader):
 
                 neighbourhoods.append([row[0], row[1], float(row[2])])
 
-        sql = "INSERT INTO " + Dataset.NEIGHBOURHOOD_TABLE_NAME + " (city, neighbourhood, sale_value) VALUES (%s, %s," \
-                                                            " %s)"
+        sql = (
+            f"INSERT INTO {Dataset.NEIGHBOURHOOD_TABLE_NAME}"
+            + " (city, neighbourhood, sale_value) VALUES (%s, %s,"
+            " %s)"
+        )
+
         cursor = dataset.database.cursor()
 
         for entry in neighbourhoods:
@@ -102,7 +98,7 @@ class NewYorkCityDataLoader(DataLoader):
 
         dataset.database.commit()
 
-        with open(path + "/other.csv", encoding="utf8") as csvfile:
+        with open(f"{path}/other.csv", encoding="utf8") as csvfile:
             reader = csv.reader(csvfile)
             data = ["New York City"]
             first = True
@@ -114,9 +110,12 @@ class NewYorkCityDataLoader(DataLoader):
 
                 data += [float(row[0]), float(row[1])]
 
-        sql = "INSERT INTO " + Dataset.CITIES_TABLE_NAME + " (name, utilities," \
-                                                            " tax_rate) VALUES (%s, %s," \
-                                                            " %s)"
+        sql = (
+            f"INSERT INTO {Dataset.CITIES_TABLE_NAME}" + " (name, utilities,"
+            " tax_rate) VALUES (%s, %s,"
+            " %s)"
+        )
+
         cursor = dataset.database.cursor()
 
         try:
