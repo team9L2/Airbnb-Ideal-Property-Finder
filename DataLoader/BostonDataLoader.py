@@ -21,7 +21,7 @@ class BostonDataLoader(DataLoader):
         # reviews_per_month, calculated_host_listings_count, availability_365
 
         table1Entries = []
-        path1 = path + "/calendar.csv"
+        path1 = f"{path}/calendar.csv"
 
         with open(path1, encoding="utf8") as csvfile:
             reader = csv.reader(csvfile)
@@ -41,7 +41,7 @@ class BostonDataLoader(DataLoader):
                 table1Entries.append(entry)
 
         table2Entries = []
-        path2 = path + "/listings.csv"
+        path2 = f"{path}/listings.csv"
 
         with open(path2, encoding="utf8") as csvfile:
             reader = csv.reader(csvfile)
@@ -151,19 +151,23 @@ class BostonDataLoader(DataLoader):
 
         dataset.database.commit()
 
-        sql = "INSERT INTO " + Dataset.GENERAL_TABLE_NAME + " (name, host_id, host_name," \
-                                                    " city, neighbourhood, latitude, longitude, room_type, price," \
-                                                    " minimum_nights, number_of_reviews, last_review, reviews_per_month, " \
-                                                    " calculated_host_listings_count, availability_365) SELECT name, host_id, host_name," \
-                                                    " city, neighbourhood, latitude, longitude, room_type, price," \
-                                                    " minimum_nights, number_of_reviews, last_review, reviews_per_month, " \
-                                                    " calculated_host_listings_count, availability_365 FROM (Table1 INNER JOIN Table2 ON Table1.listing_id=Table2.listing_id);"
+        sql = (
+            f"INSERT INTO {Dataset.GENERAL_TABLE_NAME}"
+            + " (name, host_id, host_name,"
+            " city, neighbourhood, latitude, longitude, room_type, price,"
+            " minimum_nights, number_of_reviews, last_review, reviews_per_month, "
+            " calculated_host_listings_count, availability_365) SELECT name, host_id, host_name,"
+            " city, neighbourhood, latitude, longitude, room_type, price,"
+            " minimum_nights, number_of_reviews, last_review, reviews_per_month, "
+            " calculated_host_listings_count, availability_365 FROM (Table1 INNER JOIN Table2 ON Table1.listing_id=Table2.listing_id);"
+        )
+
         cursor.execute(sql)
         dataset.database.commit()
 
         neighbourhoods = []
 
-        with open(path + "/prices.csv", encoding="utf8") as csvfile:
+        with open(f"{path}/prices.csv", encoding="utf8") as csvfile:
             reader = csv.reader(csvfile)
             first = True
 
@@ -174,8 +178,12 @@ class BostonDataLoader(DataLoader):
 
                 neighbourhoods.append([row[0], row[1], float(row[2])])
 
-        sql = "INSERT INTO " + Dataset.NEIGHBOURHOOD_TABLE_NAME + " (city, neighbourhood, sale_value) VALUES (%s, %s," \
-                                                                  " %s)"
+        sql = (
+            f"INSERT INTO {Dataset.NEIGHBOURHOOD_TABLE_NAME}"
+            + " (city, neighbourhood, sale_value) VALUES (%s, %s,"
+            " %s)"
+        )
+
         cursor = dataset.database.cursor()
 
         for entry in neighbourhoods:
@@ -187,7 +195,7 @@ class BostonDataLoader(DataLoader):
 
         dataset.database.commit()
 
-        with open(path + "/other.csv", encoding="utf8") as csvfile:
+        with open(f"{path}/other.csv", encoding="utf8") as csvfile:
             reader = csv.reader(csvfile)
             data = ["Boston"]
             first = True
@@ -199,9 +207,12 @@ class BostonDataLoader(DataLoader):
 
                 data += [float(row[0]), float(row[1])]
 
-        sql = "INSERT INTO " + Dataset.CITIES_TABLE_NAME + " (name, utilities," \
-                                                           " tax_rate) VALUES (%s, %s," \
-                                                           " %s)"
+        sql = (
+            f"INSERT INTO {Dataset.CITIES_TABLE_NAME}" + " (name, utilities,"
+            " tax_rate) VALUES (%s, %s,"
+            " %s)"
+        )
+
         cursor = dataset.database.cursor()
 
         try:

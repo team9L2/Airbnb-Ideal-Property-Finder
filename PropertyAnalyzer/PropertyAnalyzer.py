@@ -61,7 +61,10 @@ class PropertyAnalyzer:
         cursor.execute("create table x as select listings_short.id, listings_short.city, price, listings_short.neighbourhood, sale_value from listings_short, neighbourhoods where listings_short.city = neighbourhoods.city and listings_short.neighbourhood = neighbourhoods.neighbourhood;")
         dataset.database.commit()
 
-        cursor.execute("create table profits as select x.id, city, neighbourhood, price * " + str(numberOfDaysRented) + " - sale_value * tax_rate - utilities as yearly_profit, price from x, CityCosts where x.city = CityCosts.name;")
+        cursor.execute(
+            f"create table profits as select x.id, city, neighbourhood, price * {numberOfDaysRented} - sale_value * tax_rate - utilities as yearly_profit, price from x, CityCosts where x.city = CityCosts.name;"
+        )
+
         dataset.database.commit()
 
         cursor.execute("create table property_to_buy as select id, city, yearly_profit, price from profits where yearly_profit in (select MAX(yearly_profit) FROM profits);")
